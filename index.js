@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 
 import styles from './style';
+import { T } from 'ramda';
 
 const ViewPropTypes = RNViewPropTypes || View.propTypes;
 
@@ -75,7 +76,6 @@ const propTypes = {
     selectedKey:                    PropTypes.any,
     enableShortPress:               PropTypes.bool,
     enableLongPress:                PropTypes.bool,
-    optionsTestIDPrefix:            PropTypes.string,
 };
 
 const defaultProps = {
@@ -127,7 +127,6 @@ const defaultProps = {
     selectedKey:                    '',
     enableShortPress:               true,
     enableLongPress:                false,
-    optionsTestIDPrefix:            'default',
 };
 
 export default class ModalSelector extends React.Component {
@@ -232,7 +231,6 @@ export default class ModalSelector extends React.Component {
         return (
             <TouchableOpacity
               key={this.props.keyExtractor(option)}
-              testID={option.testID || this.props.optionsTestIDPrefix + '-' + optionLabel}
               onPress={() => this.onChange(option)}
               activeOpacity={this.props.touchableActiveOpacity}
               accessible={this.props.listItemAccessible}
@@ -362,6 +360,7 @@ export default class ModalSelector extends React.Component {
                         disabled={this.props.disabled}
                         accessible={this.props.openButtonContainerAccessible}
                     >
+                        <Text style={this.props.styleTitle}>{this.props.title}</Text>
                         <View style={this.props.childrenContainerStyle} pointerEvents="none">
                             {this.renderChildren()}
                         </View>
