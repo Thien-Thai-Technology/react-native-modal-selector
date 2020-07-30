@@ -2,6 +2,7 @@
 
 import { StyleSheet } from 'react-native';
 
+
 const PADDING = 8;
 const BORDER_RADIUS = 5;
 const FONT_SIZE = 16;
@@ -22,6 +23,7 @@ export default StyleSheet.create({
         marginBottom:    8,
         padding:         PADDING,
         backgroundColor: 'rgba(255,255,255,0.8)',
+        maxHeight: '83%'
     },
 
     cancelContainer: {

@@ -52,13 +52,13 @@ const propTypes = {
   cancelText: PropTypes.string,
   disabled: PropTypes.bool,
   supportedOrientations: PropTypes.arrayOf(
-    PropTypes.oneOf([
-      "portrait",
-      "portrait-upside-down",
-      "landscape",
-      "landscape-left",
-      "landscape-right",
-    ])
+      PropTypes.oneOf([
+        "portrait",
+        "portrait-upside-down",
+        "landscape",
+        "landscape-left",
+        "landscape-right",
+      ])
   ),
   keyboardShouldPersistTaps: PropTypes.oneOfType([
     PropTypes.string,
@@ -157,8 +157,8 @@ export default class ModalSelector extends React.Component {
       doUpdate = true;
     }
     if (
-      prevProps.selectedKey !== this.props.selectedKey ||
-      prevProps.data !== this.props.data
+        prevProps.selectedKey !== this.props.selectedKey ||
+        prevProps.data !== this.props.data
     ) {
       let selectedItem = this.validateSelectedKey(this.props.selectedKey);
       newState.selected = selectedItem.label;
@@ -172,12 +172,12 @@ export default class ModalSelector extends React.Component {
 
   validateSelectedKey = (key) => {
     let selectedItem = this.props.data.filter(
-      (item) => this.props.keyExtractor(item) === key
+        (item) => this.props.keyExtractor(item) === key
     );
     let selectedLabel =
-      selectedItem.length > 0
-        ? this.props.labelExtractor(selectedItem[0])
-        : this.props.initValue;
+        selectedItem.length > 0
+            ? this.props.labelExtractor(selectedItem[0])
+            : this.props.initValue;
     let selectedKey = selectedItem.length > 0 ? key : undefined;
     return { label: selectedLabel, key: selectedKey };
   };
@@ -185,10 +185,10 @@ export default class ModalSelector extends React.Component {
   onChange = (item) => {
     this.props.onChange(item);
     this.setState(
-      { selected: this.props.labelExtractor(item), changedItem: item },
-      () => {
-        if (this.props.closeOnChange) this.close(item);
-      }
+        { selected: this.props.labelExtractor(item), changedItem: item },
+        () => {
+          if (this.props.closeOnChange) this.close(item);
+        }
     );
   };
 
@@ -220,18 +220,18 @@ export default class ModalSelector extends React.Component {
   renderSection = (section) => {
     const optionComponent = this.props.componentExtractor(section);
     let component = optionComponent || (
-      <Text style={[styles.sectionTextStyle, this.props.sectionTextStyle]}>
-        {this.props.labelExtractor(section)}
-      </Text>
+        <Text style={[styles.sectionTextStyle, this.props.sectionTextStyle]}>
+          {this.props.labelExtractor(section)}
+        </Text>
     );
 
     return (
-      <View
-        key={this.props.keyExtractor(section)}
-        style={[styles.sectionStyle, this.props.sectionStyle]}
-      >
-        {component}
-      </View>
+        <View
+            key={this.props.keyExtractor(section)}
+            style={[styles.sectionStyle, this.props.sectionStyle]}
+        >
+          {component}
+        </View>
     );
   };
 
@@ -241,38 +241,38 @@ export default class ModalSelector extends React.Component {
     const isSelectedItem = optionLabel === this.state.selected;
 
     let component = optionComponent || (
-      <Text
-        style={[
-          styles.optionTextStyle,
-          this.props.optionTextStyle,
-          isSelectedItem && this.props.selectedItemTextStyle,
-        ]}
-        {...this.props.optionTextPassThruProps}
-      >
-        {optionLabel}
-      </Text>
+        <Text
+            style={[
+              styles.optionTextStyle,
+              this.props.optionTextStyle,
+              isSelectedItem && this.props.selectedItemTextStyle,
+            ]}
+            {...this.props.optionTextPassThruProps}
+        >
+          {optionLabel}
+        </Text>
     );
 
     return (
-      <TouchableOpacity
-        key={this.props.keyExtractor(option)}
-        onPress={() => this.onChange(option)}
-        activeOpacity={this.props.touchableActiveOpacity}
-        accessible={this.props.listItemAccessible}
-        accessibilityLabel={option.accessibilityLabel || undefined}
-        importantForAccessibility={isFirstItem ? "yes" : "no"}
-        {...this.props.passThruProps}
-      >
-        <View
-          style={[
-            styles.optionStyle,
-            this.props.optionStyle,
-            isLastItem && { borderBottomWidth: 0 },
-          ]}
+        <TouchableOpacity
+            key={this.props.keyExtractor(option)}
+            onPress={() => this.onChange(option)}
+            activeOpacity={this.props.touchableActiveOpacity}
+            accessible={this.props.listItemAccessible}
+            accessibilityLabel={option.accessibilityLabel || undefined}
+            importantForAccessibility={isFirstItem ? "yes" : "no"}
+            {...this.props.passThruProps}
         >
-          {component}
-        </View>
-      </TouchableOpacity>
+          <View
+              style={[
+                styles.optionStyle,
+                this.props.optionStyle,
+                isLastItem && { borderBottomWidth: 0 },
+              ]}
+          >
+            {component}
+          </View>
+        </TouchableOpacity>
     );
   };
 
@@ -293,6 +293,7 @@ export default class ModalSelector extends React.Component {
       cancelStyle,
       cancelTextStyle,
       cancelText,
+      headerComponent,
     } = this.props;
 
     let options = data.map((item, index) => {
@@ -322,34 +323,35 @@ export default class ModalSelector extends React.Component {
     }
 
     return (
-      <Overlay {...overlayProps}>
-        <View style={[styles.overlayStyle, overlayStyle]}>
-          <View style={[styles.optionContainer, optionContainerStyle]}>
-            <ScrollView
-              keyboardShouldPersistTaps={keyboardShouldPersistTaps}
-              accessible={scrollViewAccessible}
-              accessibilityLabel={scrollViewAccessibilityLabel}
-              {...scrollViewPassThruProps}
-            >
-              <View style={optionsContainerStyle}>{options}</View>
-            </ScrollView>
+        <Overlay {...overlayProps}>
+          <View style={[styles.overlayStyle, overlayStyle]}>
+            <View style={[styles.optionContainer, optionContainerStyle]}>
+              {/*{headerComponent}*/}
+              <ScrollView
+                  keyboardShouldPersistTaps={keyboardShouldPersistTaps}
+                  accessible={scrollViewAccessible}
+                  accessibilityLabel={scrollViewAccessibilityLabel}
+                  {...scrollViewPassThruProps}
+              >
+                <View style={optionsContainerStyle}>{options}</View>
+              </ScrollView>
+            </View>
+            <View style={[styles.cancelContainer, cancelContainerStyle]}>
+              <TouchableOpacity
+                  onPress={this.close}
+                  activeOpacity={touchableActiveOpacity}
+                  accessible={cancelButtonAccessible}
+                  accessibilityLabel={cancelButtonAccessibilityLabel}
+              >
+                <View style={[styles.cancelStyle, cancelStyle]}>
+                  <Text style={[styles.cancelTextStyle, cancelTextStyle]}>
+                    {cancelText}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           </View>
-          <View style={[styles.cancelContainer, cancelContainerStyle]}>
-            <TouchableOpacity
-              onPress={this.close}
-              activeOpacity={touchableActiveOpacity}
-              accessible={cancelButtonAccessible}
-              accessibilityLabel={cancelButtonAccessibilityLabel}
-            >
-              <View style={[styles.cancelStyle, cancelStyle]}>
-                <Text style={[styles.cancelTextStyle, cancelTextStyle]}>
-                  {cancelText}
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Overlay>
+        </Overlay>
     );
   };
 
@@ -358,66 +360,67 @@ export default class ModalSelector extends React.Component {
       return this.props.children;
     }
     let initSelectStyle =
-      this.props.initValue === this.state.selected
-        ? [styles.initValueTextStyle, this.props.initValueTextStyle]
-        : [styles.selectTextStyle, this.props.selectTextStyle];
+        this.props.initValue === this.state.selected
+            ? [styles.initValueTextStyle, this.props.initValueTextStyle]
+            : [styles.selectTextStyle, this.props.selectTextStyle];
     return (
-      <View style={[styles.selectStyle, this.props.selectStyle]}>
-        <Text style={initSelectStyle} {...this.props.selectTextPassThruProps}>
-          {this.state.selected}
-        </Text>
-      </View>
+        <View style={[styles.selectStyle, this.props.selectStyle]}>
+          <Text style={initSelectStyle} {...this.props.selectTextPassThruProps}>
+            {this.state.selected}
+          </Text>
+        </View>
     );
   };
 
   render() {
     const dp = (
-      <Modal
-        transparent={true}
-        ref={(element) => (this.model = element)}
-        supportedOrientations={this.props.supportedOrientations}
-        visible={this.state.modalVisible}
-        onRequestClose={this.close}
-        animationType={this.props.animationType}
-        onDismiss={() =>
-          this.state.changedItem && this.props.onChange(this.state.changedItem)
-        }
-      >
-        {this.renderOptionList()}
-      </Modal>
+        <Modal
+            transparent={true}
+            ref={(element) => (this.model = element)}
+            supportedOrientations={this.props.supportedOrientations}
+            visible={this.state.modalVisible}
+            onRequestClose={this.close}
+            animationType={this.props.animationType}
+            onDismiss={() =>
+                this.state.changedItem && this.props.onChange(this.state.changedItem)
+            }
+        >
+          {this.props.headerComponent}
+          {this.renderOptionList()}
+        </Modal>
     );
 
     return (
-      <View style={this.props.style} {...this.props.passThruProps}>
-        {dp}
-        {this.props.customSelector ? (
-          this.props.customSelector
-        ) : (
-          <TouchableOpacity
-            hitSlop={this.props.modalOpenerHitSlop}
-            activeOpacity={this.props.touchableActiveOpacity}
-            style={this.props.touchableStyle}
-            onPress={() => {
-              if (this.props.validate) {
-                return this.open();
-              } else {
-                return Alert.alert("Thông báo", this.props.textValidate);
-              }
-            }}
-            onLongPress={() => this.open({ longPress: true })}
-            disabled={this.props.disabled}
-            accessible={this.props.openButtonContainerAccessible}
-          >
-            <Text style={this.props.styleTitle}>{this.props.title}</Text>
-            <View
-              style={this.props.childrenContainerStyle}
-              pointerEvents="none"
-            >
-              {this.renderChildren()}
-            </View>
-          </TouchableOpacity>
-        )}
-      </View>
+        <View style={this.props.style} {...this.props.passThruProps}>
+          {dp}
+          {this.props.customSelector ? (
+              this.props.customSelector
+          ) : (
+              <TouchableOpacity
+                  hitSlop={this.props.modalOpenerHitSlop}
+                  activeOpacity={this.props.touchableActiveOpacity}
+                  style={this.props.touchableStyle}
+                  onPress={() => {
+                    if (this.props.validate) {
+                      return this.open();
+                    } else {
+                      return Alert.alert("Thông báo", this.props.textValidate);
+                    }
+                  }}
+                  onLongPress={() => this.open({ longPress: true })}
+                  disabled={this.props.disabled}
+                  accessible={this.props.openButtonContainerAccessible}
+              >
+                <Text style={this.props.styleTitle}>{this.props.title}</Text>
+                <View
+                    style={this.props.childrenContainerStyle}
+                    pointerEvents="none"
+                >
+                  {this.renderChildren()}
+                </View>
+              </TouchableOpacity>
+          )}
+        </View>
     );
   }
 }
