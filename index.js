@@ -12,6 +12,7 @@ import {
   TouchableWithoutFeedback,
   ViewPropTypes as RNViewPropTypes,
   Alert,
+  KeyboardAvoidingView
 } from "react-native";
 
 import styles from "./style";
@@ -325,31 +326,33 @@ export default class ModalSelector extends React.Component {
     return (
         <Overlay {...overlayProps}>
           <View style={[styles.overlayStyle, overlayStyle]}>
-            <View style={[styles.optionContainer, optionContainerStyle]}>
-              {/*{headerComponent}*/}
-              <ScrollView
-                  keyboardShouldPersistTaps={keyboardShouldPersistTaps}
-                  accessible={scrollViewAccessible}
-                  accessibilityLabel={scrollViewAccessibilityLabel}
-                  {...scrollViewPassThruProps}
-              >
-                <View style={optionsContainerStyle}>{options}</View>
-              </ScrollView>
-            </View>
-            <View style={[styles.cancelContainer, cancelContainerStyle]}>
-              <TouchableOpacity
-                  onPress={this.close}
-                  activeOpacity={touchableActiveOpacity}
-                  accessible={cancelButtonAccessible}
-                  accessibilityLabel={cancelButtonAccessibilityLabel}
-              >
-                <View style={[styles.cancelStyle, cancelStyle]}>
-                  <Text style={[styles.cancelTextStyle, cancelTextStyle]}>
-                    {cancelText}
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            </View>
+            <KeyboardAvoidingView behavior={'padding'} keyboardVerticalOffset={-20}>
+              <View style={[styles.optionContainer, optionContainerStyle]}>
+                {/*{headerComponent}*/}
+                <ScrollView
+                    keyboardShouldPersistTaps={keyboardShouldPersistTaps}
+                    accessible={scrollViewAccessible}
+                    accessibilityLabel={scrollViewAccessibilityLabel}
+                    {...scrollViewPassThruProps}
+                >
+                  <View style={optionsContainerStyle}>{options}</View>
+                </ScrollView>
+              </View>
+              <View style={[styles.cancelContainer, cancelContainerStyle]}>
+                <TouchableOpacity
+                    onPress={this.close}
+                    activeOpacity={touchableActiveOpacity}
+                    accessible={cancelButtonAccessible}
+                    accessibilityLabel={cancelButtonAccessibilityLabel}
+                >
+                  <View style={[styles.cancelStyle, cancelStyle]}>
+                    <Text style={[styles.cancelTextStyle, cancelTextStyle]}>
+                      {cancelText}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </KeyboardAvoidingView>
           </View>
         </Overlay>
     );
